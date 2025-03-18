@@ -21,6 +21,8 @@ jobs:
         pip install requests transformers torch
 
     - name: Run change impact analysis
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         python -c "
         import os
@@ -44,6 +46,3 @@ jobs:
                 print(f'Results for {filename}:')
                 print(results)
         "
-              env:
-                HF_TOKEN: ${{ secrets.HF_TOKEN }
-
