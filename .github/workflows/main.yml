@@ -18,11 +18,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests
+        pip install requests transformers
 
     - name: Run code quality check
       run: |
-        python -m pip install transformers
         python -c "
 import requests
 from transformers import pipeline
