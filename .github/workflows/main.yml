@@ -23,17 +23,17 @@ jobs:
     - name: Run code quality check
       run: |
         python -c "
-import requests
-from transformers import pipeline
+        import requests
+        from transformers import pipeline
 
-# Load the model
-model = pipeline('text-classification', model='huggingface/your-model')
+        # Load the model
+        model = pipeline('text-classification', model='huggingface/your-model')
 
-# Read the code file
-with open('your_code.py', 'r') as file:
-    code = file.read()
+        # Read the code file
+        with open('your_code.py', 'r') as file:
+            code = file.read()
 
-# Analyze the code
-results = model(code)
-print(results)
-"
+        # Analyze the code
+        results = model(code)
+        print(results)
+        "
