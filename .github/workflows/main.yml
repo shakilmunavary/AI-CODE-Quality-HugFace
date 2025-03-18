@@ -1,9 +1,9 @@
-name: Code Quality Check
+name: Change Impact Analysis
 
 on: [push, pull_request]
 
 jobs:
-  code_quality:
+  analyze_changes:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,22 +20,29 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests transformers torch
 
-    - name: Run code quality check
+    - name: Run change impact analysis
       run: |
         python -c "
-        import requests
+        import os
         from transformers import pipeline
-
+        
         # Load the model
-        model = pipeline('text-classification', model='huggingface/your-model', use_auth_token='YOUR_HF_TOKEN')
-
-        # Read the code file
-        with open('your_code.py', 'r') as file:
-            code = file.read()
-
-        # Analyze the code
-        results = model(code)
-        print(results)
+        model = pipeline('text-classification', model='yangheng/deberta-v3-large-absa-v1.1', use_auth_token='YOUR_HF_TOKEN')
+        
+        # Directory containing the Python files
+        scripts_dir = 'scripts'
+        
+        # Iterate over all Python files in the directory
+        for filename in os.listdir(scripts_dir):
+            if filename.endswith('.py'):
+                filepath = os.path.join(scripts_dir, filename)
+                with open(filepath, 'r') as file:
+                    code = file.read()
+                
+                # Analyze the code
+                results = model(code)
+                print(f'Results for {filename}:')
+                print(results)
         "
               env:
-                HF_TOKEN: ${{ secrets.HF_TOKEN }}
+                HF_TOKEN: ${{ secrets.HF_TOKEN }
