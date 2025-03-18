@@ -18,11 +18,9 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests transformers torch
+        pip install requests transformers torch tiktoken protobuf
 
     - name: Run change impact analysis
-      env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         python -c "
         import os
@@ -46,3 +44,5 @@ jobs:
                 print(f'Results for {filename}:')
                 print(results)
         "
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
