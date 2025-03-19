@@ -23,11 +23,15 @@ jobs:
     - name: Run change impact analysis
       run: |
         python -c "
+
         import os
-        from transformers import pipeline
+        from transformers import pipeline, AutoTokenizer
         
-        # Load the model
-        model = pipeline('text-classification', model='yangheng/deberta-v3-large-absa-v1.1', use_auth_token='${{ secrets.HF_TOKEN }}')
+        # Load the tokenizer
+        tokenizer = AutoTokenizer.from_pretrained('yangheng/deberta-v3-large-absa-v1.1', use_fast=False)
+        
+        # Load the model with the specified tokenizer
+        model = pipeline('text-classification', model='yangheng/deberta-v3-large-absa-v1.1', tokenizer=tokenizer, use_auth_token='${{ secrets.HF_TOKEN }}')
         
         # Directory containing the Python files
         scripts_dir = 'scripts'
@@ -43,6 +47,6 @@ jobs:
                 results = model(code)
                 print(f'Results for {filename}:')
                 print(results)
-        "
+         "
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
