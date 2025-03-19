@@ -27,7 +27,7 @@ jobs:
         from transformers import pipeline
         
         # Load the model
-        model = pipeline('text-classification', model='yangheng/deberta-v3-large-absa-v1.1', use_auth_token='YOUR_HF_TOKEN')
+        model = pipeline('text-classification', model='yangheng/deberta-v3-large-absa-v1.1', use_auth_token='${{ secrets.HF_TOKEN }}')
         
         # Directory containing the Python files
         scripts_dir = 'scripts'
