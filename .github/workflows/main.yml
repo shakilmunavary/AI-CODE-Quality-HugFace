@@ -18,7 +18,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests transformers torch tiktoken protobuf
+        pip install requests transformers torch tiktoken protobuf sentencepiece
 
     - name: Run change impact analysis
       run: |
